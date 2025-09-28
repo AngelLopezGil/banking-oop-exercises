@@ -1,0 +1,15 @@
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\bin\Debug\net8.0\01-Encapsulation.exe
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\bin\Debug\net8.0\01-Encapsulation.deps.json
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\bin\Debug\net8.0\01-Encapsulation.runtimeconfig.json
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\bin\Debug\net8.0\01-Encapsulation.dll
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\bin\Debug\net8.0\01-Encapsulation.pdb
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.GeneratedMSBuildEditorConfig.editorconfig
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.AssemblyInfoInputs.cache
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.AssemblyInfo.cs
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.csproj.CoreCompileInputs.cache
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.sourcelink.json
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.dll
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\refint\01-Encapsulation.dll
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.pdb
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\01-Encapsulation.genruntimeconfig.cache
+C:\Desarrollo\banking-oop-exercises\01-Encapsulation\obj\Debug\net8.0\ref\01-Encapsulation.dll
