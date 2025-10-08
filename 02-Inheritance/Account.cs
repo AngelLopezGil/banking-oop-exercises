@@ -2,108 +2,69 @@ using System;
 
 namespace BankingSystem
 {
-    // Clase base para cuentas bancarias - INTENCIONALMENTE MAL DISEÑADA
-    public class Account
+    // Clase abstracta: NO se puede instanciar directamente
+    public abstract class Account
     {
-        // PROBLEMA: Campos públicos exponen el estado interno
-        public string AccountNumber;
-        public string OwnerName;
-        public decimal Balance;
-        public string AccountType;  // PROBLEMA: String para tipos es frágil
+        // Propiedades protegidas: accesibles por clases hijas
+        protected string AccountNumber { get; set; }
+        protected string OwnerName { get; set; }
+        protected decimal Balance { get; set; }
 
-        public Account(string accountNumber, string ownerName, decimal initialBalance, string accountType)
+        // Propiedad abstracta: cada hija DEBE implementarla
+        public abstract string AccountTypeName { get; }
+
+        // Constructor protegido: solo las hijas pueden llamarlo
+        protected Account(string accountNumber, string ownerName, decimal initialBalance)
         {
+            // Validaciones
+            if (string.IsNullOrWhiteSpace(accountNumber))
+                throw new ArgumentException("El número de cuenta no puede estar vacío.");
+
+            if (string.IsNullOrWhiteSpace(ownerName))
+                throw new ArgumentException("El nombre del titular no puede estar vacío.");
+
+            if (initialBalance < 0)
+                throw new ArgumentException("El balance inicial no puede ser negativo.");
+
             AccountNumber = accountNumber;
             OwnerName = ownerName;
             Balance = initialBalance;
-            AccountType = accountType;
         }
 
+        // Método normal: todas las cuentas depositan igual
         public void Deposit(decimal amount)
         {
+            if (amount <= 0)
+            {
+                Console.WriteLine("ERROR: El monto a depositar debe ser mayor a 0.");
+                return;
+            }
+
             Balance += amount;
-            Console.WriteLine($"Depositado {amount}. Nuevo balance: {Balance}");
+            Console.WriteLine($"Depositado {amount:C}. Nuevo balance: {Balance:C}");
         }
 
-        // PROBLEMA: Este método tiene demasiadas responsabilidades
-        public void Withdraw(decimal amount)
-        {
-            // PROBLEMA: Lógica específica de cada tipo mezclada con condicionales
-            if (AccountType == "Savings")
-            {
-                if (Balance - amount >= 100)
-                {
-                    Balance -= amount;
-                    Console.WriteLine($"Retirado {amount}. Nuevo balance: {Balance}");
-                }
-                else
-                {
-                    Console.WriteLine("Fondos insuficientes. Las cuentas de ahorro deben mantener un balance mínimo de 100.");
-                }
-            }
-            else if (AccountType == "Checking")
-            {
-                if (Balance - amount >= -500)
-                {
-                    Balance -= amount;
-                    if (Balance < 0)
-                    {
-                        Balance -= 25;  // Cargo por sobregiro
-                        Console.WriteLine($"Retirado {amount}. Cargo por sobregiro aplicado. Nuevo balance: {Balance}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Retirado {amount}. Nuevo balance: {Balance}");
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Fondos insuficientes. No se puede exceder el límite de sobregiro de 500.");
-                }
-            }
-            else if (AccountType == "Investment")
-            {
-                if (Balance - amount >= 0)
-                {
-                    Balance -= amount;
-                    decimal fee = amount * 0.02m;  // Comisión del 2%
-                    Balance -= fee;
-                    Console.WriteLine($"Retirado {amount}. Comisión de transacción: {fee}. Nuevo balance: {Balance}");
-                }
-                else
-                {
-                    Console.WriteLine("Fondos insuficientes. Las cuentas de inversión no pueden tener balance negativo.");
-                }
-            }
-        }
+        // Método abstracto: cada tipo de cuenta tiene reglas diferentes
+        // Las clases hijas DEBEN implementar este método
+        public abstract void Withdraw(decimal amount);
 
-        // PROBLEMA: Más condicionales basados en strings
-        public void CalculateInterest()
-        {
-            if (AccountType == "Savings")
-            {
-                decimal interest = Balance * 0.03m;  // 3% para ahorro
-                Balance += interest;
-                Console.WriteLine($"Interés aplicado: {interest}. Nuevo balance: {Balance}");
-            }
-            else if (AccountType == "Investment")
-            {
-                decimal interest = Balance * 0.07m;  // 7% para inversión
-                Balance += interest;
-                Console.WriteLine($"Interés aplicado: {interest}. Nuevo balance: {Balance}");
-            }
-            else
-            {
-                Console.WriteLine("Este tipo de cuenta no genera intereses.");
-            }
-        }
+        // Método abstracto: cada tipo de cuenta calcula interés diferente
+        // Las clases hijas DEBEN implementar este método
+        public abstract void CalculateInterest();
 
-        public void DisplayInfo()
+        // Método virtual: comportamiento por defecto que puede sobrescribirse
+        public virtual void DisplayInfo()
         {
             Console.WriteLine($"Cuenta: {AccountNumber}");
             Console.WriteLine($"Titular: {OwnerName}");
-            Console.WriteLine($"Tipo: {AccountType}");
-            Console.WriteLine($"Balance: {Balance}");
+            Console.WriteLine($"Tipo: {AccountTypeName}");
+            Console.WriteLine($"Balance: {Balance:C}");
+        }
+
+        // Método protegido auxiliar para que las hijas obtengan el balance
+        protected decimal GetBalance()
+        {
+            return Balance;
         }
     }
 }
